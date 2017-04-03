@@ -15,6 +15,7 @@ class CreateImages extends Migration
     {
       Schema::create('images', function (Blueprint $table) {
           $table->increments('id');
+          $table->integer('order')->unsigned();
           $table->text('original_name');
           $table->text('filename');
           $table->boolean('visible')->default(true);

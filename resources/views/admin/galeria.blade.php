@@ -67,132 +67,18 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 Gallery
+                <button class="btn btn-success btn-xs" id="refreshGallery"
+                        data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Refreshing files">
+                        <span class="glyphicon glyphicon-refresh"></span> Refresh
+                </button>
             </div>
-            <div class="panel-body">
-              @foreach ($images as $image)
-                <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-                  <div class="thumbnail">
-                    <a href="#">
-                        <img class="img-responsive" style="width:120px; height:90px;" src="/images/icon_size/{{$image['filename']}}" alt="">
-                    </a>
-                    <span class="badge" style="display: block; margin-top: 3px;">
-                      Visible <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    </span>
-                  </div>
-                </div>
-              @endforeach
+            <div class="panel-body" id="sortable">
+              @include('admin.refreshGallery')
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
     {!! Html::script('css/dropzone/dropzone.min.js'); !!}
-    <script>
-        var imageCounter = 0;
-        Dropzone.options.myDropzone = {
-            autoProcessQueue: false,
-            uploadMultiple: true,
-            maxFilezise: 1,
-            maxFiles: 14,
-
-            parallelUploads: 100,
-            previewsContainer: '#dropzonePreview',
-            previewTemplate: document.querySelector('#preview-template').innerHTML,
-            addRemoveLinks: true,
-            dictRemoveFile: 'Remove',
-            dictFileTooBig: 'Image is bigger than 5MB',
-
-            init: function() {
-                //var submitBtn = document.querySelector("#submit");
-                var submitBtn = $("#submit");
-                var dropzoneMessage = document.querySelector("#dropzoneMessage");
-                myDropzone = this;
-
-                submitBtn.on("click", function(e){
-                    e.preventDefault();
-                    e.stopPropagation();
-                    myDropzone.processQueue();
-
-                    var $this = $(this);
-                    $this.button('loading');
-                });
-
-                submitBtn.on("finishUpload", function(e) {
-                  var $this = $(this);
-                  $this.button('reset');
-                });
-
-                this.on("addedfile", function(file) {
-                    //alert("file uploaded");
-                    console.log('addedFile', file, myDropzone.files.length);
-                    imageCounter++;
-                    this.checkQueueFiles();
-                });
-
-                this.on("removedfile", function(file) {
-                    //alert("file uploaded");
-                    console.log('removedFile', file, myDropzone.files.length);
-                    imageCounter--;
-                    this.checkQueueFiles();
-                });
-
-                this.on("queuecomplete", function() {
-                    console.log('queuecomplete');
-                    submitBtn.trigger('finishUpload');
-                    this.checkQueueFiles();
-                });
-
-                this.on("complete", function(file) {
-                    console.log('complete', file);
-                    myDropzone.removeFile(file);
-                    this.checkQueueFiles();
-                });
-
-                this.on("success",
-                    myDropzone.processQueue.bind(myDropzone)
-                );
-
-                this.on("maxfilesexceeded", function(file){
-                    //alert("No more files please!");
-                    //myDropzone.removeFile(file);
-                });
-
-                this.checkQueueFiles = function () {
-                  if (myDropzone.files.length === 0) {
-                    //submitBtn.style.display = 'none';
-                    submitBtn.hide();
-                    dropzoneMessage.style.display = 'block';
-                  } else {
-                    //submitBtn.style.display = 'block';
-                    submitBtn.show();
-                    dropzoneMessage.style.display = 'none';
-                  }
-
-                  $("#photoCounter").text( "(" + imageCounter + ")");
-                }
-
-                this.checkQueueFiles();
-            },
-            error: function(file, response) {
-                console.log('error', response);
-                // if($.type(response) === "string")
-                //     var message = response; //dropzone sends it's own error messages in string
-                // else
-                //     var message = response.message;
-                // file.previewElement.classList.add("dz-error");
-                // _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-                // _results = [];
-                // for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                //     node = _ref[_i];
-                //     _results.push(node.textContent = message);
-                // }
-                // return _results;
-            },
-            success: function(file,done) {
-                //photo_counter++;
-                // $("#photoCounter").text( "(" + imageCounter + ")");
-                // console.log('Done!', file, done, myDropzone.files.length);
-            }
-        };
-    </script>
+    {!! Html::script('js/dropzone/dropzone-config.js'); !!}
 @endsection

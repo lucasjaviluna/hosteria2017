@@ -21,6 +21,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     });
 
     Route::get('galeria', 'AdminController@galeria')->name('admin.galeria');
+    Route::post('visibleImage/{id?}', 'AdminController@visibleImage')->name('admin.visibleImage');
+    Route::post('removeImage/{id?}', 'AdminController@removeImage')->name('admin.removeImage');
+    Route::post('sortImages/{ids?}', 'AdminController@sortImages')->name('admin.sortImages');
 
     Route::get('promociones', function () {
       return view('admin.promocion');

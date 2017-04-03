@@ -28,16 +28,18 @@ class ImageRepository
         }
 
         $photos = $form_data['file'];
-
-        $id = DB::table('images')->max('id');
+        //@TODO: traer sólo los visibles y no borrados y sacar el máximo id
+        $id = DB::table('images')->whereNull('deleted_at')->max('id');
+        $order = $id;
         foreach ($photos as $photo) {
           $id++;
+          $order++;
           $originalName = $photo->getClientOriginalName();
           $extension = $photo->getClientOriginalExtension();
           $originalNameWithoutExt = substr($originalName, 0, strlen($originalName) - strlen($extension) - 1);
 
           $filename = $this->sanitize($originalNameWithoutExt);
-          $allowed_filename = $this->createUniqueFilename( $filename, $extension );
+          //$allowed_filename = $this->createUniqueFilename( $filename, $extension );
 
           $allowed_filename = sprintf('%d.%s', $id, $extension);
           $uploadSuccess1 = $this->original( $photo, $allowed_filename );
@@ -57,6 +59,7 @@ class ImageRepository
           $sessionImage = new Image;
           $sessionImage->filename      = $allowed_filename;
           $sessionImage->original_name = $originalName;
+          $sessionImage->order = $order;
           $sessionImage->save();
         }
 

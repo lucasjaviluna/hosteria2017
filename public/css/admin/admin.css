@@ -1,0 +1,20 @@
+a:has(> span.badge) {
+  text-decoration: none;
+}
+
+span.badge {
+  display: block;
+  margin-top: 3px;
+}
+
+span.badge#badgeVisibleYes {
+  background-color: green;
+}
+
+span.badge#badgeVisibleNo {
+  background-color: grey;
+}
+
+span.badge#badgeRemove {
+  background-color: red;
+}

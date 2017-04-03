@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\View;
 
 use App\Models\Image;
 
@@ -25,9 +26,13 @@ class AdminController extends Controller
     return view('form');
   }
 
-  function galeria() {
-      $images = $this->getServerImages();
-      return view('admin.galeria', ['images' => $images]);
+  function galeria(Request $request) {
+    $images = $this->getServerImages();
+    if ($request->ajax()) {
+      return View::make('admin.refreshGallery', compact('images'));
+    }
+
+    return view('admin.galeria', compact('images'));
   }
 
   public function uploadImages(Request $request)
@@ -61,20 +66,20 @@ class AdminController extends Controller
       if (!$all) {
         $images->where('visible', true);
       }
-      $images = $images->get();
+      $images = $images->orderBy('order', 'asc')->get();
 
       $imageAnswer = [];
       $pathFull = Config::get('images.full_size');
       $pathIcon = Config::get('images.icon_size');
       foreach ($images as $image) {
           $imageAnswer[] = [
-              'id' => $image->id,
-              'filename' => $image->filename,
-              'original' => $image->original_name,
-              'pathIcon' => $pathIcon . $image->filename,
-              'pathFull' => $pathFull . $image->filename,
-              'visible' => $image->visible,
-              'size' => File::size($pathFull . $image->filename)
+            'id' => $image->id,
+            'filename' => $image->filename,
+            'original' => $image->original_name,
+            'pathIcon' => $pathIcon . $image->filename,
+            'pathFull' => $pathFull . $image->filename,
+            'visible' => $image->visible,
+            'size' => File::size($pathFull . $image->filename)
           ];
       }
 
@@ -83,5 +88,34 @@ class AdminController extends Controller
       //     'images' => $imageAnswer
       // ]);
       //return response()->json($imageAnswer);
+  }
+
+  public function visibleImage(Request $request) {
+    $id = $request->input('id', 0);
+    $image = Image::findOrFail($id);
+    $image->visible = !$image->visible;
+    $image->save();
+
+    return response()->json(['code' => 200, 'imageVisible' => $image->visible]);
+  }
+
+  public function removeImage(Request $request) {
+    $id = $request->input('id', 0);
+    $deleted = Image::findOrFail($id)->delete();
+
+    return response()->json(['code' => 200, 'imageDeleted' => $deleted]);
+  }
+
+  public function sortImages(Request $request) {
+    $ids = $request->input('ids', []);
+    $order = 1;
+    foreach ($ids as $id) {
+      DB::table('images')
+            ->where('id', $id)
+            ->update(['order' => $order]);
+      $order++;
+    }
+
+    return response()->json(['code' => 200, 'sorted' => true]);
   }
 }
