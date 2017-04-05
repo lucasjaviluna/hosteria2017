@@ -48,6 +48,7 @@
                 <label for="info" class="col-md-1 control-label">Text</label>
                 <div class="col-md-10">
                   <textarea id="info" type="text" class="form-control" name="info" required autofocus rows="8" cols="80"></textarea>
+                  <label id="infoMessage" class="label label-warning" style="display: none;"> Ingresar los item de la lista separados por un Enter </label>
                 </div>
               </div>
             </div>
