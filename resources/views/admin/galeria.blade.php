@@ -11,11 +11,15 @@
             </div>
             <div class="panel-body">
                 {!! Form::open(['route'=> 'image.upload', 'method' => 'POST', 'files'=>'true', 'id' => 'my-dropzone' , 'class' => 'dropzone']) !!}
-                <div class="dz-message" id="dropzoneMessage">
-                    Drop your files here
-                </div>
                 <div class="dropzone-previews" id="dropzonePreview"></div>
-                <button type="submit" class="btn btn-success" id="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Uploading files">Upload <span id="photoCounter"></span> files</button>
+                <div class="dz-message" id="dropzoneMessage">
+                    <button type="submit" class="btn btn-success" id="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Uploading files">
+                        <span class="glyphicon glyphicon-arrow-up"></span>
+                        Upload <span id="photoCounter"></span>
+                    </button>
+                    Click here for add files or Drop your files
+                </div>
+
                 {!! Form::close() !!}
 
                 <!-- Dropzone Preview Template -->
@@ -73,7 +77,7 @@
                 </button>
             </div>
             <div class="panel-body" id="sortable">
-              @include('admin.refreshGallery')
+              @include('admin.galleryList')
             </div>
         </div>
     </div>

@@ -20,21 +20,23 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
       return view('admin.home');
     });
 
-    Route::get('galeria', 'AdminController@galeria')->name('admin.galeria');
+    //Gallery
+    Route::get('galeria', 'AdminController@gallery')->name('admin.galeria');
     Route::post('visibleImage/{id?}', 'AdminController@visibleImage')->name('admin.visibleImage');
     Route::post('removeImage/{id?}', 'AdminController@removeImage')->name('admin.removeImage');
     Route::post('sortImages/{ids?}', 'AdminController@sortImages')->name('admin.sortImages');
 
-    Route::get('promociones', function () {
-      return view('admin.promocion');
-    })->name('admin.promociones');
+    //Promotion
+    Route::get('promociones', 'AdminController@promotion')->name('admin.promociones');
 
+    //Fish
     Route::get('pesca', function () {
       return view('admin.pesca');
     })->name('admin.pesca');
 });
 
 Route::post('image.upload', 'AdminController@uploadImages')->name('image.upload');
+Route::post('promotion.create', 'AdminController@createPromotion')->name('promotion.create');
 
 Auth::routes();
 

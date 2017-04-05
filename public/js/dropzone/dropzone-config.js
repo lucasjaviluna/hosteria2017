@@ -16,6 +16,7 @@ Dropzone.options.myDropzone = {
         //var submitBtn = document.querySelector("#submit");
         var submitBtn = $("#submit");
         var dropzoneMessage = document.querySelector("#dropzoneMessage");
+        var fileLabel = 'file';
         myDropzone = this;
 
         submitBtn.on("click", function(e){
@@ -73,14 +74,17 @@ Dropzone.options.myDropzone = {
           if (myDropzone.files.length === 0) {
             //submitBtn.style.display = 'none';
             submitBtn.hide();
-            dropzoneMessage.style.display = 'block';
+            //dropzoneMessage.style.display = 'block';
           } else {
             //submitBtn.style.display = 'block';
             submitBtn.show();
-            dropzoneMessage.style.display = 'none';
+            //dropzoneMessage.style.display = 'none';
           }
 
-          $("#photoCounter").text( "(" + imageCounter + ")");
+          if (imageCounter > 1) {
+              fileLabel = 'files';
+          }
+          $("#photoCounter").text( "(" + imageCounter + ") " + fileLabel);
         }
 
         this.checkQueueFiles();
@@ -193,7 +197,7 @@ function visibleImage(event, imageId) {
     });
 }
 
-//$("#sortable").sortable();
+//Ordena las imagenes
 $("#sortable").sortable({
   update: function( event, ui ) {
     console.log('update',ui);
@@ -211,16 +215,6 @@ $("#sortable").sortable({
         data: {ids: ids},
         success: function(data) {
             console.log(data);
-            // var spanBadge = $("span[data-id="+imageId+"]");
-            // var spanGlyphicon = spanBadge.find("span").first();
-            // //if new visible is True, then change the id spanBadge and Glyphicon-thumb (up/down)
-            // if (data.imageVisible == true) {
-            //     spanBadge.attr("id", "badgeVisibleYes");
-            //     spanGlyphicon.removeClass('glyphicon-thumbs-down').addClass('glyphicon-thumbs-up');
-            // } else {
-            //     spanBadge.attr("id", "badgeVisibleNo");
-            //     spanGlyphicon.removeClass('glyphicon-thumbs-up').addClass('glyphicon-thumbs-down');
-            // }
         },
         error: function(error) {
             console.log("Error al reordenar images", error);

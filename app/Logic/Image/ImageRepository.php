@@ -13,6 +13,43 @@ use App\Models\Image;
 
 class ImageRepository
 {
+    public function getServerImages($all = true)
+    {
+        //$images = Image::get(['original_name', 'filename']);
+        //$images = Image::all();
+        //Image::find(2)->delete();
+
+        // $images = Image::where('visible', $visible)
+        //           ->whereNull('deleted_at')
+        //           ->get();
+        $images = Image::whereNull('deleted_at');
+        if (!$all) {
+          $images->where('visible', true);
+        }
+        $images = $images->orderBy('order', 'asc')->get();
+
+        $imageAnswer = [];
+        $pathFull = Config::get('images.full_size');
+        $pathIcon = Config::get('images.icon_size');
+        foreach ($images as $image) {
+            $imageAnswer[] = [
+              'id' => $image->id,
+              'filename' => $image->filename,
+              'original' => $image->original_name,
+              'pathIcon' => $pathIcon . $image->filename,
+              'pathFull' => $pathFull . $image->filename,
+              'visible' => $image->visible,
+              'size' => File::size($pathFull . $image->filename)
+            ];
+        }
+
+        return $imageAnswer;
+        // return response()->json([
+        //     'images' => $imageAnswer
+        // ]);
+        //return response()->json($imageAnswer);
+    }
+
     public function uploadMultiple( $form_data )
     {
         $validator = Validator::make($form_data, Image::$rules, Image::$messages);
@@ -62,56 +99,6 @@ class ImageRepository
           $sessionImage->order = $order;
           $sessionImage->save();
         }
-
-        return Response::json([
-            'error' => false,
-            'code'  => 200
-        ], 200);
-
-    }
-
-    public function upload( $form_data )
-    {
-
-        $validator = Validator::make($form_data, Image::$rules, Image::$messages);
-
-        if ($validator->fails()) {
-
-            return Response::json([
-                'error' => true,
-                'message' => $validator->messages()->first(),
-                'code' => 400
-            ], 400);
-
-        }
-
-        $photo = $form_data['file'];
-
-        $originalName = $photo->getClientOriginalName();
-        $extension = $photo->getClientOriginalExtension();
-        $originalNameWithoutExt = substr($originalName, 0, strlen($originalName) - strlen($extension) - 1);
-
-        $filename = $this->sanitize($originalNameWithoutExt);
-        $allowed_filename = $this->createUniqueFilename( $filename, $extension );
-
-        $uploadSuccess1 = $this->original( $photo, $allowed_filename );
-
-        $uploadSuccess2 = $this->icon( $photo, $allowed_filename );
-
-        if( !$uploadSuccess1 || !$uploadSuccess2 ) {
-
-            return Response::json([
-                'error' => true,
-                'message' => 'Server error while uploading',
-                'code' => 500
-            ], 500);
-
-        }
-
-        $sessionImage = new Image;
-        $sessionImage->filename      = $allowed_filename;
-        $sessionImage->original_name = $originalName;
-        $sessionImage->save();
 
         return Response::json([
             'error' => false,

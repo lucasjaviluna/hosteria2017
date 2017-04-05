@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Logic\Image\ImageRepository;
+use App\Logic\Promotion\PromotionRepository;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -11,14 +12,17 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 
 use App\Models\Image;
+use App\Models\Promotion;
 
 class AdminController extends Controller
 {
-  protected $image;
+  protected $imageRepository;
+  protected $promotionRepository;
 
-  public function __construct(ImageRepository $imageRepository)
+  public function __construct(ImageRepository $imageRepository, PromotionRepository $promotionRepository)
   {
-      $this->image = $imageRepository;
+    $this->imageRepository = $imageRepository;
+    $this->promotionRepository = $promotionRepository;
   }
 
   public function index()
@@ -26,10 +30,11 @@ class AdminController extends Controller
     return view('form');
   }
 
-  function galeria(Request $request) {
-    $images = $this->getServerImages();
+  //****** Gallery functions *******
+  function gallery(Request $request) {
+    $images = $this->imageRepository->getServerImages();
     if ($request->ajax()) {
-      return View::make('admin.refreshGallery', compact('images'));
+      return View::make('admin.galleryList', compact('images'));
     }
 
     return view('admin.galeria', compact('images'));
@@ -38,7 +43,7 @@ class AdminController extends Controller
   public function uploadImages(Request $request)
   {
     $input = $request->all();
-    $response = $this->image->uploadMultiple($input);
+    $response = $this->imageRepository->uploadMultiple($input);
     return $response;
 
     //$response = $this->image->upload($photo);
@@ -49,45 +54,6 @@ class AdminController extends Controller
     //     $fileName = $file->getClientOriginalName();
     //     $file->move($path, $fileName);
     // }
-
-
-  }
-
-  public function getServerImages($all = true)
-  {
-      //$images = Image::get(['original_name', 'filename']);
-      //$images = Image::all();
-      //Image::find(2)->delete();
-
-      // $images = Image::where('visible', $visible)
-      //           ->whereNull('deleted_at')
-      //           ->get();
-      $images = Image::whereNull('deleted_at');
-      if (!$all) {
-        $images->where('visible', true);
-      }
-      $images = $images->orderBy('order', 'asc')->get();
-
-      $imageAnswer = [];
-      $pathFull = Config::get('images.full_size');
-      $pathIcon = Config::get('images.icon_size');
-      foreach ($images as $image) {
-          $imageAnswer[] = [
-            'id' => $image->id,
-            'filename' => $image->filename,
-            'original' => $image->original_name,
-            'pathIcon' => $pathIcon . $image->filename,
-            'pathFull' => $pathFull . $image->filename,
-            'visible' => $image->visible,
-            'size' => File::size($pathFull . $image->filename)
-          ];
-      }
-
-      return $imageAnswer;
-      // return response()->json([
-      //     'images' => $imageAnswer
-      // ]);
-      //return response()->json($imageAnswer);
   }
 
   public function visibleImage(Request $request) {
@@ -118,4 +84,18 @@ class AdminController extends Controller
 
     return response()->json(['code' => 200, 'sorted' => true]);
   }
+  //****** End Gallery functions *******
+
+
+
+  //****** Promotion functions *******
+  public function promotion(Request $request) {
+    $promotions = $this->promotionRepository->getServerPromotions();
+    if ($request->ajax()) {
+      return View::make('admin.promotionList', compact('promotions'));
+    }
+
+    return view('admin.promocion', compact('promotions'));
+  }
+  //****** End Promotion functions *******
 }
