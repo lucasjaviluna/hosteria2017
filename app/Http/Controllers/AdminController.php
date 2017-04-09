@@ -97,5 +97,13 @@ class AdminController extends Controller
 
     return view('admin.promocion', compact('promotions'));
   }
+
+  public function createPromotion(Request $request) {
+    $input = $request->all();
+    $response = $this->promotionRepository->createPromotion($input);
+
+    return $this->promotion($request);
+    //return $response;
+  }
   //****** End Promotion functions *******
 }

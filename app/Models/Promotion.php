@@ -9,5 +9,8 @@ class Promotion extends Model
 {
     use SoftDeletes;
 
+    const TYPE_LIST = 'list';
+    const TYPE_CUSTOM = 'custom';
+
     protected $dates = ['deleted_at'];
 }

@@ -17,9 +17,10 @@ class CreatePromotions extends Migration
         $table->increments('id');
         $table->integer('order')->unsigned();
         $table->enum('type', ['custom', 'list'])->default('custom');
-        $table->text('title');
-        $table->text('subtitle');
+        $table->text('title')->nullable();
+        $table->text('subtitle')->nullable();
         $table->text('info');
+        $table->text('image')->nullable();
         $table->boolean('visible')->default(true);
         $table->softDeletes();
         $table->timestamps();

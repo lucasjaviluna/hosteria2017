@@ -53,8 +53,8 @@ class ImageController extends Controller
                 ->get();
 
       $imageAnswer = [];
-      $pathFull = Config::get('images.full_size');
-      $pathIcon = Config::get('images.icon_size');
+      $pathFull = Config::get('images.gallery_full_size');
+      $pathIcon = Config::get('images.gallery_icon_size');
       foreach ($images as $image) {
           $imageAnswer[] = [
               'id' => $image->id,

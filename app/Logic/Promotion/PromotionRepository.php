@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManager;
 use App\Models\Promotion;
+use App\Logic\Image\ImageRepository;
 
 class PromotionRepository
 {
@@ -21,17 +22,60 @@ class PromotionRepository
     $promotions = $promotions->orderBy('order', 'asc')->get();
 
     $promotionAnswer = [];
-    foreach ($promotions as $image) {
+    foreach ($promotions as $promotion) {
+        $info = $promotion->info;
+        if ($promotion->type === Promotion::TYPE_LIST) {
+          $info = preg_split("/\r\n/", $info);
+        }
+
         $promotionAnswer[] = [
-          'id' => $image->id,
-          'type' => $image->type,
-          'title' => $image->title,
-          'subtitle' => $image->subtitle,
-          'visible' => $image->visible,
-          'info' => $image->info
+          'id' => $promotion->id,
+          'type' => $promotion->type,
+          'title' => $promotion->title,
+          'subtitle' => $promotion->subtitle,
+          'visible' => $promotion->visible,
+          'info' => $info
         ];
     }
 
+//dd($promotionAnswer);
     return $promotionAnswer;
+  }
+
+  public function createPromotion($form_data) {
+    $type = $form_data['type'];
+    $title = $form_data['title'];
+    $subtitle = $form_data['subtitle'];
+    $info = $form_data['info'];
+
+    $id = DB::table('promotions')->whereNull('deleted_at')->max('id');
+    $id++;
+    $order = $id;
+//dd($form_data);
+    $fileName = null;
+    $path = public_path().'/promotions/';
+    if (isset($form_data['image'])) {
+      $file = $form_data['image'];
+      $extension = $file->getClientOriginalExtension();
+      $fileName = sprintf('%d.%s', $id, $extension);
+      $imageRepository = new ImageRepository();
+      $imageRepository->original($file, $fileName, 2);
+      $imageRepository->icon($file, $fileName, 2);
+      //$file->move($path, $fileName);
+    }
+
+    $promotion = new Promotion();
+    $promotion->type = $type;
+    $promotion->title = $title;
+    $promotion->subtitle = $subtitle;
+    $promotion->image = $fileName;
+    $promotion->info = $info;
+    $promotion->order = $order;
+    $promotion->save();
+
+    return Response::json([
+        'error' => false,
+        'code'  => 200
+    ], 200);
   }
 }

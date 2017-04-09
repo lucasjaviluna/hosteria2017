@@ -29,8 +29,8 @@ class ImageRepository
         $images = $images->orderBy('order', 'asc')->get();
 
         $imageAnswer = [];
-        $pathFull = Config::get('images.full_size');
-        $pathIcon = Config::get('images.icon_size');
+        $pathFull = Config::get('images.gallery_full_size');
+        $pathIcon = Config::get('images.gallery_icon_size');
         foreach ($images as $image) {
             $imageAnswer[] = [
               'id' => $image->id,
@@ -79,9 +79,9 @@ class ImageRepository
           //$allowed_filename = $this->createUniqueFilename( $filename, $extension );
 
           $allowed_filename = sprintf('%d.%s', $id, $extension);
-          $uploadSuccess1 = $this->original( $photo, $allowed_filename );
+          $uploadSuccess1 = $this->original( $photo, $allowed_filename, 1 );
 
-          $uploadSuccess2 = $this->icon( $photo, $allowed_filename );
+          $uploadSuccess2 = $this->icon( $photo, $allowed_filename, 1 );
 
           if( !$uploadSuccess1 || !$uploadSuccess2 ) {
 
@@ -109,7 +109,7 @@ class ImageRepository
 
     public function createUniqueFilename( $filename, $extension )
     {
-        $full_size_dir = Config::get('images.full_size');
+        $full_size_dir = Config::get('images.gallery_full_size');
         $full_image_path = $full_size_dir . $filename . '.' . $extension;
         if ( File::exists( $full_image_path ) )
         {
@@ -124,24 +124,27 @@ class ImageRepository
     /**
      * Optimize Original Image
      */
-    public function original( $photo, $filename )
+    public function original( $photo, $filename, $source )
     {
         $manager = new ImageManager();
-        $image = $manager->make( $photo )->save(Config::get('images.full_size') . $filename );
+        $path = $source === 1 ? Config::get('images.gallery_full_size') : Config::get('images.promotion_full_size');
+        $image = $manager->make( $photo )->save($path . $filename );
 
         return $image;
     }
 
     /**
      * Create Icon From Original
+     * $source: [1: gallery, 2: promotion]
      */
-    public function icon( $photo, $filename )
+    public function icon( $photo, $filename, $source )
     {
         $manager = new ImageManager();
+        $path = $source === 1 ? Config::get('images.gallery_icon_size') : Config::get('images.promotion_icon_size');
         $image = $manager->make( $photo )->resize(200, null, function ($constraint) {
-            $constraint->aspectRatio();
+              $constraint->aspectRatio();
             })
-            ->save( Config::get('images.icon_size')  . $filename );
+            ->save( $path  . $filename );
 
         return $image;
     }
@@ -151,12 +154,10 @@ class ImageRepository
      */
     public function delete( $originalFilename)
     {
-
-        $full_size_dir = Config::get('images.full_size');
-        $icon_size_dir = Config::get('images.icon_size');
+        $full_size_dir = Config::get('images.gallery_full_size');
+        $icon_size_dir = Config::get('images.gallery_icon_size');
 
         $sessionImage = Image::where('original_name', 'like', $originalFilename)->first();
-
 
         if(empty($sessionImage))
         {
