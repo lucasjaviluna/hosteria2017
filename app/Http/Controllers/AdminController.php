@@ -91,19 +91,60 @@ class AdminController extends Controller
   //****** Promotion functions *******
   public function promotion(Request $request) {
     $promotions = $this->promotionRepository->getServerPromotions();
-    if ($request->ajax()) {
-      return View::make('admin.promotionList', compact('promotions'));
+    $id = isset($request->id) ? $request->id : 0;
+    //si id > 0, es edit
+    $promotion = null;
+    if ($id) {
+      $promotion = $this->promotionRepository->getPromotion($id);
     }
 
-    return view('admin.promocion', compact('promotions'));
+    if ($request->ajax()) {
+      return View::make('admin.promotionList', compact('promotions', 'id', 'promotion'));
+    }
+
+    return view('admin.promocion', compact('promotions', 'id', 'promotion'));
   }
 
   public function createPromotion(Request $request) {
     $input = $request->all();
     $response = $this->promotionRepository->createPromotion($input);
 
-    return $this->promotion($request);
+    $notification = [
+      'type' => 'success',
+      'message' => 'New Promotion created!'
+    ];
+    return redirect('/admin/promociones')->with($notification);;
+    //return $this->promotion($request);
     //return $response;
+  }
+
+  public function visiblePromotion(Request $request) {
+    $id = $request->input('id', 0);
+    $promotion = Promotion::findOrFail($id);
+    $promotion->visible = !$promotion->visible;
+    $promotion->save();
+
+    return response()->json(['code' => 200, 'promotionVisible' => $promotion->visible]);
+  }
+
+  public function removePromotion(Request $request) {
+    $id = $request->input('id', 0);
+    $deleted = Promotion::findOrFail($id)->delete();
+
+    return response()->json(['code' => 200, 'promotionDeleted' => $deleted]);
+  }
+
+  public function sortPromotions(Request $request) {
+    $ids = $request->input('ids', []);
+    $order = 1;
+    foreach ($ids as $id) {
+      DB::table('promotions')
+            ->where('id', $id)
+            ->update(['order' => $order]);
+      $order++;
+    }
+
+    return response()->json(['code' => 200, 'sorted' => true]);
   }
   //****** End Promotion functions *******
 }

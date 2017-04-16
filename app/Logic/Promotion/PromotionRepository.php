@@ -24,17 +24,19 @@ class PromotionRepository
     $promotionAnswer = [];
     foreach ($promotions as $promotion) {
         $info = $promotion->info;
-        if ($promotion->type === Promotion::TYPE_LIST) {
+        //if ($promotion->type === Promotion::TYPE_LIST) {
           $info = preg_split("/\r\n/", $info);
-        }
+        //}
 
         $promotionAnswer[] = [
           'id' => $promotion->id,
           'type' => $promotion->type,
           'title' => $promotion->title,
           'subtitle' => $promotion->subtitle,
+          'important' => $promotion->important,
           'visible' => $promotion->visible,
-          'info' => $info
+          'info' => $info,
+          'image' => $promotion->image
         ];
     }
 
@@ -45,8 +47,9 @@ class PromotionRepository
   public function createPromotion($form_data) {
     $type = $form_data['type'];
     $title = $form_data['title'];
-    $subtitle = $form_data['subtitle'];
+    //$subtitle = $form_data['subtitle'];
     $info = $form_data['info'];
+    $important = $form_data['important'];
 
     $id = DB::table('promotions')->whereNull('deleted_at')->max('id');
     $id++;
@@ -67,7 +70,8 @@ class PromotionRepository
     $promotion = new Promotion();
     $promotion->type = $type;
     $promotion->title = $title;
-    $promotion->subtitle = $subtitle;
+    //$promotion->subtitle = $subtitle;
+    $promotion->important = $important;
     $promotion->image = $fileName;
     $promotion->info = $info;
     $promotion->order = $order;
@@ -77,5 +81,25 @@ class PromotionRepository
         'error' => false,
         'code'  => 200
     ], 200);
+  }
+
+  public function getPromotion($id)
+  {
+    $promotion = Promotion::whereNull('deleted_at')->where('visible', true)->where('id', $id)->first();
+
+    if (empty($promotion)) return null;
+
+    $promotionAnswer = [
+      'id' => $promotion->id,
+      'type' => $promotion->type,
+      'title' => $promotion->title,
+      'subtitle' => $promotion->subtitle,
+      'important' => $promotion->important,
+      'visible' => $promotion->visible,
+      'info' => preg_split("/\r\n/", $promotion->info),
+      'image' => $promotion->image
+    ];
+
+    return $promotionAnswer;
   }
 }

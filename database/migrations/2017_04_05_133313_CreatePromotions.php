@@ -19,6 +19,7 @@ class CreatePromotions extends Migration
         $table->enum('type', ['custom', 'list'])->default('custom');
         $table->text('title')->nullable();
         $table->text('subtitle')->nullable();
+        $table->text('important')->nullable();
         $table->text('info');
         $table->text('image')->nullable();
         $table->boolean('visible')->default(true);

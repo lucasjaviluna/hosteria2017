@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'HomeController@index');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', function () {
@@ -29,7 +30,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('sortImages/{ids?}', 'AdminController@sortImages')->name('admin.sortImages');
 
     //Promotion
-    Route::get('promociones', 'AdminController@promotion')->name('admin.promociones');
+    Route::get('promociones/{id?}', 'AdminController@promotion')->name('admin.promociones');
+    Route::post('visiblePromotion/{id?}', 'AdminController@visiblePromotion')->name('admin.visiblePromotion');
+    Route::post('removePromotion/{id?}', 'AdminController@removePromotion')->name('admin.removePromotion');
+    Route::post('sortPromotions/{ids?}', 'AdminController@sortPromotions')->name('admin.sortPromotions');
 
     //Fish
     Route::get('pesca', function () {
