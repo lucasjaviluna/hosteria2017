@@ -36,7 +36,7 @@ class PromotionRepository
           'important' => $promotion->important,
           'visible' => $promotion->visible,
           'info' => $info,
-          'image' => $promotion->image
+          'image' => empty($promotion->image) ? null : $promotion->image
         ];
     }
 

@@ -25,6 +25,7 @@
     </div><!-- /.footer-socials -->
 
     <p class="copyright">Copyright &copy; 2014 <a href="http://www.lucidsitedesigns.com/">Lucid</a> Onepage Theme</p><!-- /.copyright -->
+    <div class="gototop"></div>
   </div><!-- /.container -->
 </footer><!-- /.footer -->
 </div><!-- /.wrapper -->

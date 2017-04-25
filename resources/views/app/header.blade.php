@@ -10,14 +10,17 @@
 	<link rel="shortcut icon" type="image/x-icon" href="css/images/favicon.ico" />
 
 	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="{{ asset('css/bootstrap/css/bootstrap.min.css') }}" />
+	<link rel="stylesheet" href="{{ asset('css/web/css/style.css') }}" />
+
+	<link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.css') }}" />
 
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-	<script src="js/jquery-1.11.0.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.bxslider.min.js"></script>
+	<script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+	<script src="{{ asset('css/bootstrap/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery/jquery.bxslider.min.js') }}"></script>
 	<script src="js/functions.js"></script>
+	<script src="{{ asset('js/app/utils.js') }}"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -35,33 +38,36 @@
 						<span class="icon-bar"></span>
 					</button>
 
-					<a class="navbar-brand" href="#">Lucid</a>
+					{{-- <a class="navbar-brand" href="#"> --}}
+          <a class="navbar-brand" href="#">
+            <h5>Hostería San Benito</h5>
+          </a>
 				</div><!-- /.navbar-header -->
 
 				<div class="collapse navbar-collapse" id="nav">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active">
+						<li class="activesss">
 							<a href="#header">Home</a>
 						</li>
 
 						<li>
-							<a href="#section-features">Features</a>
+							<a href="#section-services">Servicios</a>
 						</li>
 
 						<li>
-							<a href="#section-about">About</a>
+							<a href="#section-promotions">Promociones</a>
 						</li>
 
 						<li>
-							<a href="#section-testimonials">Testimonials</a>
+							<a href="#section-gallery">Galeria</a>
 						</li>
 
 						<li>
-							<a href="#section-pricing">Pricing</a>
+							<a href="#section-pricing">Pesca</a>
 						</li>
 
 						<li>
-							<a href="#section-contacts">Contact</a>
+							<a href="#section-contacts">Contacto</a>
 						</li>
 					</ul>
 				</div>

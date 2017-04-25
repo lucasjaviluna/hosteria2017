@@ -4,16 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Logic\Image\ImageRepository;
+use App\Logic\Promotion\PromotionRepository;
+use App\Models\Image;
+use App\Models\Promotion;
+
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $imageRepository;
+    protected $promotionRepository;
+
+    public function __construct(ImageRepository $imageRepository, PromotionRepository $promotionRepository)
     {
-        //$this->middleware('auth');
+      //$this->middleware('auth');
+      $this->imageRepository = $imageRepository;
+      $this->promotionRepository = $promotionRepository;
     }
 
     /**
@@ -23,6 +28,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('app.web');
+        //Promotions
+        $promotions = $this->promotionRepository->getServerPromotions(false);
+        $cantPromotions = count($promotions);
+        $cut = 3;
+        if ($cantPromotions >= 4) {
+          $cols = 6;
+          $cut = 2;
+        } else {
+          $cols = ($cantPromotions > 0) ? 12 / $cantPromotions : 12;
+        }
+
+        return view('app.web', compact('promotions', 'cols', 'cut'));
     }
 }
