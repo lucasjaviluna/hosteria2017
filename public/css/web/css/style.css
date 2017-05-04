@@ -204,11 +204,11 @@ td { padding: 0; }
 /* ================================================================ *\
 	#About
 \* ================================================================ */
-.section-about { padding: 20px 0 45px; }
+.section-about { padding: 30px 0 45px; }
 .section-about .section-content { padding-top: 54px;  }
 .section-about .section-title:after { margin: 27px 0 0; }
 
-.section-about-alt { padding: 20px 0 45px; text-align: center; } /*background: #fafafa;*/
+.section-about-alt { padding: 30px 0 45px; text-align: center; } /*background: #fafafa;*/
 .section-about-alt .section-content { padding-top: 71px; }
 .section-about-alt .section-title { margin: 10px 0; }
 
@@ -444,7 +444,8 @@ td { padding: 0; }
 .w3_agileits_services_grid {
     text-align: center;
     padding: 0;
-    /*width: 24%;
+		/*border-top: 1px solid burlywood;
+    width: 24%;
     margin-left: 1%;
     box-shadow: 0 0 18px rgba(0,0,0,0.18);
     border: 1px solid #C2C2C2;*/

@@ -22,6 +22,10 @@
                 <!-- <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li> -->
                 {{-- <li class="divider"></li> --}}
                 <li>
+                    <a href="{{ route('home') }}" target="_blank"><i class="fa fa-globe fa-fw"></i> Ir a la Web</a>
+                </li>
+                <li class="divider"></li>
+                <li>
                     <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

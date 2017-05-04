@@ -18,9 +18,14 @@
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	<script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
 	<script src="{{ asset('css/bootstrap/js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('js/jquery/jquery.bxslider.min.js') }}"></script>
-	<script src="js/functions.js"></script>
+	{{-- hos<script src="{{ asset('js/jquery/jquery.bxslider.min.js') }}"></script> --}}
+	{{-- <script src="js/functions.js"></script> --}}
 	<script src="{{ asset('js/app/utils.js') }}"></script>
+
+
+	<link  href="{{ asset('js/lightbox/jquery.fancybox.min.css') }}" rel="stylesheet" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8">
+	<script src="{{ asset('js/lightbox/jquery.fancybox.js') }}" type="text/javascript" charset="utf-8"></script>
+
 </head>
 <body>
 <div class="wrapper">

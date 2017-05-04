@@ -16,6 +16,40 @@
 			});
 		});
 
+		$('[data-fancybox]').fancybox({
+			// Animation duration in ms
+			speed : 100,
+
+			// Enable infinite gallery navigation
+			loop : true,
+
+			// Should zoom animation change opacity, too
+			// If opacity is 'auto', then fade-out if image and thumbnail have different aspect ratios
+			//opacity : 'auto',
+
+			// Space around image, ignored if zoomed-in or viewport smaller than 800px
+			margin : [44, 0],
+
+			// Horizontal space between slides
+			gutter : 30,
+
+			// Should display toolbars
+			infobar : true,
+			buttons : true,
+
+			// What buttons should appear in the toolbar
+			slideShow  : false,
+			fullScreen : false,
+			thumbs     : false,
+			closeBtn   : true,
+
+			iframe : {
+				css : {
+					width : '400px'
+				}
+			}
+		});
+
 	});
 })(jQuery, window, document);
 

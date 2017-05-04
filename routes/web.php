@@ -15,24 +15,7 @@
 //     return view('welcome');
 // });
 
-Route::get('/api/rest', function () {
-  $data = [
-    'items' => [
-      ['name' => 'Harina', 'cant' => 2],
-      ['name' => 'Azucar', 'cant' => 3],
-      ['name' => 'Yerba', 'cant' => 4]
-    ],
-    'names' => [
-      ['name' => 'Lucas'],
-      ['name' => 'Vero'],
-      ['name' => 'Uriel']
-    ]
-  ];
-
-  return response()->json($data);
-});
-
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', function () {

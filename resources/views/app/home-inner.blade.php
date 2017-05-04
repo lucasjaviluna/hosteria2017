@@ -292,7 +292,7 @@
 
 					@if (($key + 1) % $cut === 0)
 						</div>
-						@if (count($promotions) !== ($key + 1))
+						@if (count($promotions) === ($key))
 							<hr/>
 						@endif
 					@endif
@@ -326,15 +326,27 @@
 		</div><!-- /.container -->
 	</section><!-- /.section section-about -->
 
-	<section class="section section-testimonials" id="section-gallery">
+	<section class="section section-testimonials" id="section-testimonials">
 		<div class="container">
 			<header class="section-head">
 				<h5>Galería</h5>
+
 				{{-- <h2 class="section-title">Pricing &amp; Plans</h2><!-- /.section-title --> --}}
 			</header><!-- /.section-head -->
 
 			<div class="section-body">
-				<div class="slider-testimoinals">
+
+					@foreach ($images as $image)
+					 <div class="col-lg-2 col-md-3 col-xs-6 thumb" data-id="{{$image['id']}}">
+						 <div class="thumbnail">
+					     <a href="/images/gallery/full_size/{{$image['filename']}}" data-fancybox="group">
+					         <img class="img-responsive" style="width:120px; height:90px;" src="/images/gallery/icon_size/{{$image['filename']}}" alt="">
+					     </a>
+					   </div>
+					 </div>
+					@endforeach
+
+				{{-- <div class="slider-testimoinals">
 					<div class="slider-clip">
 						<ul class="slides">
 							<li class="slide">
@@ -514,12 +526,12 @@
 							</li><!-- /.slide -->
 						</ul><!-- /.slides -->
 					</div><!-- /.slider-clip -->
-				</div><!-- /.slider-testimoinals -->
+				</div><!-- /.slider-testimoinals --> --}}
 			</div><!-- /.section-body -->
 		</div><!-- /.container -->
 	</section><!-- /.section section-testimonials -->
 
-	<div class="callout">
+	{{-- <div class="callout">
 		<div class="container">
 			<h2 class="callout-title">
 				<strong>Like what you see?</strong> Get this great theme now!
@@ -531,7 +543,7 @@
 				<a href="#" class="btn btn-primary">Download Now</a>
 			</div><!-- /.callout-actions -->
 		</div><!-- /.container -->
-	</div><!-- /.callout -->
+	</div><!-- /.callout --> --}}
 
 	<section class="section section-pricing" id="section-pricing">
 		<div class="container">
