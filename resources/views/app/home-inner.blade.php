@@ -326,7 +326,7 @@
 		</div><!-- /.container -->
 	</section><!-- /.section section-about -->
 
-	<section class="section section-testimonials" id="section-testimonials">
+	<section class="section section-testimonials" id="section-gallery">
 		<div class="container">
 			<header class="section-head">
 				<h5>Galería</h5>
@@ -337,7 +337,7 @@
 			<div class="section-body">
 
 					@foreach ($images as $image)
-					 <div class="col-lg-2 col-md-3 col-xs-6 thumb" data-id="{{$image['id']}}">
+					 <div class="col-lg-2 col-md-3 col-xs-6">
 						 <div class="thumbnail">
 					     <a href="/images/gallery/full_size/{{$image['filename']}}" data-fancybox="group">
 					         <img class="img-responsive" style="width:120px; height:90px;" src="/images/gallery/icon_size/{{$image['filename']}}" alt="">
