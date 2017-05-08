@@ -1,9 +1,47 @@
+function phoneValidation(element) {
+    if (element.value == '') {
+        element.setCustomValidity('Ingrese su telefono');
+    }
+    else if (element.validity.typeMismatch){
+        element.setCustomValidity('Ingrese un telefono válido');
+    }
+    else {
+       element.setCustomValidity('');
+    }
+    return true;
+}
+
+function emailValidation(element) {
+    if (element.value == '') {
+        element.setCustomValidity('Ingrese su email');
+    }
+    else if (element.validity.typeMismatch){
+        element.setCustomValidity('Ingrese un email válido');
+    }
+    else {
+       element.setCustomValidity('');
+    }
+    return true;
+}
+
+function nameValidation(element) {
+    if (element.value == '') {
+        element.setCustomValidity('Ingrese su nombre');
+    }
+    else if (element.validity.typeMismatch){
+        element.setCustomValidity('Ingrese un nombre válido');
+    }
+    else {
+       element.setCustomValidity('');
+    }
+    return true;
+}
+
 (function($, window, document, undefined) {
 	var $win = $(window);
 	var $doc = $(document);
 
 	$doc.ready(function() {
-
 		// Navigation Scroll Animation
 		$('.nav a').on('click', function(event) {
 			event.preventDefault();
@@ -49,6 +87,74 @@
 				}
 			}
 		});
+
+		//Atrapa el evento submit para el formulario del contacto
+    //Se verifica si los datos pasan o no la validacion para poder enviar el email
+    $('#contactForm').submit(function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+
+			var datos = $('#contactForm').serialize();
+			console.log(datos);
+			/*$.ajax({
+					url: 'send_email.php',
+					type: 'POST',
+					data: datos,
+					success: function(resp) {
+							console.log(resp);
+							if (resp === 'OK') {
+									$('#mensaje_contacto').css({fontSize: "18px", color: "black", background: "green"});
+									$('#mensaje_contacto').html('Su correo ha sido enviado con éxito!.<br>En breve nos comunicaremos con usted');
+									$('#form_contacto').get(0).reset();
+									$('#refresh_captcha').click();
+							} else {
+									$('#mensaje_contacto').css({fontSize: "18px", color: "white", background: "red"});
+									$('#mensaje_contacto').html(resp);
+							}
+							$('#mensaje_contacto').fadeOut(4500);
+					},
+					error: function() {
+							console.log("Error al enviar el email");
+					}
+			});*/
+
+        // if (validateMyAjaxInputs()) {
+				//
+        //     console.log("Enviar Correo");
+        //     $('#mensaje_contacto').show();
+        //     $('#mensaje_contacto').removeAttr('style');
+        //     $('#mensaje_contacto').css({fontSize: "20px", color: "blue"});
+        //     $('#mensaje_contacto').html("Enviando correo...");
+        //     var datos = $('#form_contacto').serialize();
+        //     $.ajax({
+        //         url: 'send_email.php',
+        //         type: 'POST',
+        //         data: datos,
+        //         success: function(resp) {
+        //             console.log(resp);
+        //             if (resp === 'OK') {
+        //                 $('#mensaje_contacto').css({fontSize: "18px", color: "black", background: "green"});
+        //                 $('#mensaje_contacto').html('Su correo ha sido enviado con éxito!.<br>En breve nos comunicaremos con usted');
+        //                 $('#form_contacto').get(0).reset();
+        //                 $('#refresh_captcha').click();
+        //             } else {
+        //                 $('#mensaje_contacto').css({fontSize: "18px", color: "white", background: "red"});
+        //                 $('#mensaje_contacto').html(resp);
+        //             }
+        //             $('#mensaje_contacto').fadeOut(4500);
+        //         },
+        //         error: function() {
+        //             console.log("Error al enviar el email");
+        //         }
+        //     });
+				//
+        // } else {
+        //     console.log("NO validado para enviar correo");
+        // }
+        // return false;
+
+    });
+
 
 	});
 })(jQuery, window, document);

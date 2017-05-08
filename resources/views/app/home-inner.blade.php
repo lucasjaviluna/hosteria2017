@@ -668,50 +668,101 @@
 	<section class="section section-contacts" id="section-contacts">
 		<div class="container">
 			<header class="section-head">
-				<h5>Stay In Touch</h5>
+				<h5>Contactenos</h5>
 
-				<h2 class="section-title">Contact us</h2><!-- /.section-title -->
+				{{-- <h2 class="section-title">Contact us</h2><!-- /.section-title --> --}}
 			</header><!-- /.section-head -->
 
 			<div class="section-body">
 				<div class="contacts">
 					<div class="row">
 						<div class="col-sm-4">
-							<i class="ico ico-device"></i>
-
+							{{-- <i class="ico ico-device"></i> --}}
+							<i class="fa fa-phone big" aria-hidden="true"></i>
 							<p>
-								Phone: (415) 124-5678 <br>
-
-								Fax: (412) 123-8290
+								Teléfono: (0345) 4988660 <br>
+								Celular: (0345) 154082356
 							</p>
 						</div><!-- /.col-sm-4 -->
 
 						<div class="col-sm-4">
-							<i class="ico ico-marker"></i>
-
+							{{-- <i class="ico ico-marker"></i> --}}
+							<i class="fa fa-map-marker big" aria-hidden="true"></i>
 							<p>
-								1001 Brickell Bay Dr. <br>
-
-								Suite 1900 <br>
-
-								Miami, FL 33131
+								Avda. Independencia Nº 149 <br>
+								Concordia - Entre Ríos
 							</p>
 						</div><!-- /.col-sm-4 -->
 
 						<div class="col-sm-4">
-							<i class="ico ico-envelope"></i>
-
+							{{-- <i class="ico ico-envelope"></i> --}}
+							<i class="fa fa-envelope-o big" aria-hidden="true"></i>
 							<p>
-								<a href="#">support@yourname.com</a>
+								<a href="#">info@hosteriasanbenito.com.ar</a>
 							</p>
 						</div><!-- /.col-sm-4 -->
 					</div><!-- /.row -->
 				</div><!-- /.contacts -->
 
 				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
+					<div class="col-md-4">
+						{{-- <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FHoster%25C3%25ADa-San-Benito%2F299268016781862%3Ffref%3Dts&amp;width=450&amp;height=290&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;border_color&amp;header=true" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:290px;" allowTransparency="true"></iframe> --}}
+
+						<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FHoster%C3%ADa-San-Benito%2F299268016781862%3Ffref%3Dts&tabs&width=450&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="450" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+					</div>
+					<div class="col-md-7 col-md-offset-1">
 						<div class="form-contacts-outer">
 							<div class="form-contacts">
+
+									<form action="" method="post" name="contactForm" id="contactForm">
+										<div class="form-body">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="contact-name" class="hidden">Nombre</label>
+
+														<div class="form-controls">
+															<input type="text" class="form-control" name="contact-name" id="contact-name" placeholder="Nombre *"
+																required oninvalid="nameValidation(this)" oninput="setCustomValidity('')">
+														</div><!-- /.form-controls -->
+													</div><!-- /.form-group -->
+
+													<div class="form-group">
+														<label for="contact-email" class="hidden">Email</label>
+
+														<div class="form-controls">
+															<input type="email" class="form-control" name="contact-email" id="contact-email" value="" placeholder="Email *"
+																required oninvalid="emailValidation(this)" oninput="setCustomValidity('')">
+														</div><!-- /.form-controls -->
+													</div><!-- /.form-group -->
+
+													<div class="form-group">
+														<label for="contact-subject" class="hidden">Teléfono</label>
+
+														<div class="form-controls">
+															<input type="text" class="form-control" name="contact-subject" id="contact-subject" value="" placeholder="Teléfono *"
+																required oninvalid="phoneValidation(this)" oninput="setCustomValidity('')">
+														</div><!-- /.form-controls -->
+													</div><!-- /.form-group -->
+												</div><!-- /.col-md-6 -->
+
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="contact-message" class="hidden">Mensaje</label>
+
+														<div class="form-controls">
+															<textarea class="form-control" name="contact-message" id="contact-message" placeholder="Mensaje *">
+															</textarea>
+														</div><!-- /.form-controls -->
+													</div><!-- /.form-group -->
+												</div><!-- /.col-md-6 -->
+											</div><!-- /.row -->
+										</div><!-- /.form-body -->
+
+										<div class="form-actions">
+											<input type="submit" name="contact-form" value="Enviar Mensaje" class="btn btn-primary btn-sm">
+										</div><!-- /.form-actions -->
+									</form>
 
 							</div><!-- /.form-contacts -->
 						</div><!-- /.form-contacts-outer -->
@@ -721,6 +772,7 @@
 		</div><!-- /.container -->
 
 		<footer class="section-foot">
-			<div class="map" id="map" data-address="1001 Brickell Bay Dr. Suite 1900 Miami, FL 33131"></div><!-- /.map -->
+			{{-- <div class="map" id="map" data-address="Avda. Independencia 149, Concordia Entre Rios"></div><!-- /.map --> --}}
+			<iframe width="86%" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;geocode=CcDBdU90Pvq5FZj_IP4d3LqK_CkBB1Y-CeitlTGR8KYjsjQdXQ&amp;q=Avda.+Independencia+149+loc:+Concordia,+Entre+R%C3%ADos,+Argentina&amp;aq=0&amp;oq=Concor&amp;sll=-31.353193,-58.007662&amp;sspn=0.002355,0.004823&amp;t=h&amp;ie=UTF8&amp;hq=Avda.+Independencia+149&amp;hnear=&amp;cid=2765407887351556033&amp;ll=-31.346137,-58.010795&amp;spn=0.002199,0.003433&amp;z=18&amp;iwloc=A&amp;output=embed"></iframe>
 		</footer><!-- /.section-foot -->
 	</section><!-- /.section section-contacts -->

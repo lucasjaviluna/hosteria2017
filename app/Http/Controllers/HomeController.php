@@ -30,24 +30,6 @@ class HomeController extends Controller
     {
         //Promotions
         $promotions = $this->promotionRepository->getServerPromotions(false);
-
-        $total = 0;
-        $maxCharateres = 0;
-        foreach ($promotions as $promotion) {
-          $total += strlen($promotion['important']);
-          foreach ($promotion['info'] as $info) {
-            $total += strlen($info);
-          }
-          echo $total.PHP_EOL;
-          if ($total > $maxCharateres) {
-            $maxCharateres = $total;
-          }
-
-          $total = 0;
-        }
-
-        $minHeight = ($total >= 200) ? 15 : 14;
-
         $cantPromotions = count($promotions);
         $cut = 3;
         if ($cantPromotions >= 4) {
@@ -56,8 +38,6 @@ class HomeController extends Controller
         } else {
           $cols = ($cantPromotions > 0) ? 12 / $cantPromotions : 12;
         }
-
-
 
         //Gallery
         $images = $this->imageRepository->getServerImages(false);
