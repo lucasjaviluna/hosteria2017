@@ -548,15 +548,117 @@
 	<section class="section section-pricing" id="section-pricing">
 		<div class="container">
 			<header class="section-head">
-				<h5>Pesca</h5>
+				<h5>Quality has its Price</h5>
+
+				<h2 class="section-title">Pricings &amp; Plans</h2><!-- /.section-title -->
 			</header><!-- /.section-head -->
 
 			<div class="section-body">
 				<div class="plans">
 					<div class="row">
+						<div class="col-md-3 col-sm-6">
+							<div class="plan">
+								<div class="plan-head">
+									<h3 class="plan-title">Free</h3><!-- /.plan-title -->
 
-						<p>Seccion en construcción...</p>
+									<div class="plan-price">
+										<span>
+											<em>$</em>0
+										</span>
 
+										<small>/per month</small>
+									</div><!-- /.plan-price -->
+								</div><!-- /.plan-head -->
+
+								<div class="plan-body">
+									<div class="plan-entry">
+										<p>Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <a href="#">lacinia</a> consectetur.</p>
+									</div><!-- /.plan-entry -->
+
+									<div class="plan-actions">
+										<a href="#" class="btn btn-default">Order Now</a>
+									</div><!-- /.plan-actions -->
+								</div><!-- /.plan-body -->
+							</div><!-- /.plan -->
+						</div><!-- /.col-md-3 col-sm-6 -->
+
+						<div class="col-md-3 col-sm-6">
+							<div class="plan">
+								<div class="plan-head">
+									<h3 class="plan-title">Personal</h3><!-- /.plan-title -->
+
+									<div class="plan-price">
+										<span>
+											<em>$</em>25
+										</span>
+
+										<small>/per month</small>
+									</div><!-- /.plan-price -->
+								</div><!-- /.plan-head -->
+
+								<div class="plan-body">
+									<div class="plan-entry">
+										<p>Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <a href="#">lacinia</a> consectetur.</p>
+									</div><!-- /.plan-entry -->
+
+									<div class="plan-actions">
+										<a href="#" class="btn btn-default">Order Now</a>
+									</div><!-- /.plan-actions -->
+								</div><!-- /.plan-body -->
+							</div><!-- /.plan -->
+						</div><!-- /.col-md-3 col-sm-6 -->
+
+						<div class="col-md-3 col-sm-6">
+							<div class="plan plan-highlight">
+								<div class="plan-head">
+									<h3 class="plan-title">Business</h3><!-- /.plan-title -->
+
+									<div class="plan-price">
+										<span>
+											<em>$</em>50
+										</span>
+
+										<small>/per month</small>
+									</div><!-- /.plan-price -->
+								</div><!-- /.plan-head -->
+
+								<div class="plan-body">
+									<div class="plan-entry">
+										<p>Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <a href="#">lacinia</a> consectetur.</p>
+									</div><!-- /.plan-entry -->
+
+									<div class="plan-actions">
+										<a href="#" class="btn btn-primary">Order Now</a>
+									</div><!-- /.plan-actions -->
+								</div><!-- /.plan-body -->
+							</div><!-- /.plan plan-highlight -->
+						</div><!-- /.col-md-3 col-sm-6 -->
+
+						<div class="col-md-3 col-sm-6">
+							<div class="plan">
+								<div class="plan-head">
+									<h3 class="plan-title">Ultimate</h3><!-- /.plan-title -->
+
+									<div class="plan-price">
+										<span>
+											<em>$</em>99
+										</span>
+
+										<small>/per month</small>
+									</div><!-- /.plan-price -->
+								</div><!-- /.plan-head -->
+
+								<div class="plan-body">
+									<div class="plan-entry">
+										<p>Fusce fermentum placerat magna ac pharetra. Aliquam euismod elit non ipsum <a href="#">lacinia</a> consectetur.</p>
+									</div><!-- /.plan-entry -->
+
+									<div class="plan-actions">
+										<a href="#" class="btn btn-default">Order Now</a>
+									</div><!-- /.plan-actions -->
+								</div><!-- /.plan-body -->
+							</div><!-- /.plan -->
+						</div><!-- /.col-md-3 col-sm-6 -->
 					</div><!-- /.row -->
 				</div><!-- /.plans -->
 			</div><!-- /.section-body -->
