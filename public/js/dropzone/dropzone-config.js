@@ -3,9 +3,9 @@ Dropzone.options.myDropzone = {
     autoProcessQueue: false,
     uploadMultiple: true,
     maxFilezise: 1,
-    maxFiles: 14,
+    maxFiles: 8,
 
-    parallelUploads: 100,
+    parallelUploads: 1,
     previewsContainer: '#dropzonePreview',
     previewTemplate: document.querySelector('#preview-template').innerHTML,
     addRemoveLinks: true,
@@ -57,7 +57,7 @@ Dropzone.options.myDropzone = {
 
         this.on("complete", function(file) {
             console.log('complete', file);
-            myDropzone.removeFile(file);
+            if (file) myDropzone.removeFile(file);
             this.checkQueueFiles();
         });
 

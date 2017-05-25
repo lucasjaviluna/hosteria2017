@@ -82,15 +82,15 @@ class ImageRepository
           $uploadSuccess1 = $this->original( $photo, $allowed_filename, 1 );
 
           $uploadSuccess2 = $this->icon( $photo, $allowed_filename, 1 );
-
+          //$uploadSuccess2 = true;
           if( !$uploadSuccess1 || !$uploadSuccess2 ) {
 
-              return Response::json([
+              /*return Response::json([
                   'error' => true,
                   'message' => 'Server error while uploading',
                   'code' => 500
-              ], 500);
-
+              ], 500);*/
+              continue;
           }
 
           $sessionImage = new Image;
@@ -139,6 +139,7 @@ class ImageRepository
      */
     public function icon( $photo, $filename, $source )
     {
+        ini_set("memory_limit", "-1");
         $manager = new ImageManager();
         $path = $source === 1 ? Config::get('images.gallery_icon_size') : Config::get('images.promotion_icon_size');
         $image = $manager->make( $photo )->resize(200, null, function ($constraint) {
