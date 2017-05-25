@@ -339,8 +339,8 @@
 					@foreach ($images as $image)
 					 <div class="col-lg-2 col-md-3 col-xs-6">
 						 <div class="thumbnail">
-					     <a href="/images/gallery/full_size/{{$image['filename']}}" data-fancybox="group">
-					         <img class="img-responsive" style="width:120px; height:90px;" src="/images/gallery/icon_size/{{$image['filename']}}" alt="">
+					     <a href="{{ asset('/images/gallery/full_size\/') }}{{$image['filename']}}" data-fancybox="group">
+					         <img class="img-responsive" style="width:120px; height:90px;" src="{{ asset('/images/gallery/icon_size\/') }}{{$image['filename']}}" alt="">
 					     </a>
 					   </div>
 					 </div>
@@ -578,8 +578,8 @@
 							{{-- <i class="ico ico-device"></i> --}}
 							<i class="fa fa-phone big" aria-hidden="true"></i>
 							<p>
-								Teléfono: (0345) 4988660 <br>
-								Celular: (0345) 154082356
+								(0345) 4988660 <br>
+								(0345) 154082356
 							</p>
 						</div><!-- /.col-sm-4 -->
 

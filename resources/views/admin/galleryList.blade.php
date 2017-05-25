@@ -2,7 +2,7 @@
  <div class="col-lg-2 col-md-3 col-xs-6 thumb" data-id="{{$image['id']}}">
    <div class="thumbnail">
      <a href="#">
-         <img class="img-responsive" style="width:120px; height:90px;" src="/images/gallery/icon_size/{{$image['filename']}}" alt="">
+         <img class="img-responsive" style="width:120px; height:90px;" src="{{ asset('/images/gallery/icon_size\/') }}{{$image['filename']}}" alt="">
      </a>
      <a href="#" onclick="visibleImage(event, {{$image['id']}});">
         <span class="badge" id="{{ $image['visible'] == 1 ? 'badgeVisibleYes' : 'badgeVisibleNo' }}" data-id="{{$image['id']}}">
