@@ -14,6 +14,18 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Message;
+use App\Mail\Contacto;
+Route::get('mail', function(){
+  Mail::to('lucasjaviluna@gmail.com', 'Lucas Javier Luna')
+    ->send(new Contacto('Enzo'));
+  /*Mail::send('emails.contacto', ['name' => 'Vero'], function(Message $message){
+    $message->to('lucasjaviluna@gmail.com', 'Lucas Javier Luna')
+      ->from('info@hosteriasanbenito.com.ar', 'Hostería San Benito')
+      ->subject('Contacto');
+  });*/
+});
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -44,6 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 Route::post('image.upload', 'AdminController@uploadImages')->name('image.upload');
 Route::post('promotion.create', 'AdminController@createPromotion')->name('promotion.create');
+Route::post('contactMsg', 'HomeController@contactMsg')->name('contact');
 
 Auth::routes();
 

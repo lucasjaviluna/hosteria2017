@@ -8,6 +8,8 @@ use App\Logic\Image\ImageRepository;
 use App\Logic\Promotion\PromotionRepository;
 use App\Models\Image;
 use App\Models\Promotion;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Contacto;
 
 class HomeController extends Controller
 {
@@ -43,5 +45,15 @@ class HomeController extends Controller
         $images = $this->imageRepository->getServerImages(false);
         //dd($images);
         return view('app.web', compact('promotions', 'cols', 'cut', 'images'));
+    }
+
+    public function contactMsg(Request $request)
+    {
+      //dd($request->all());
+      $name = $request->input('name');
+      $sent = Mail::to('lucasjaviluna@gmail.com', 'Lucas Javier Luna')
+        ->send(new Contacto($name));
+
+      dd($sent);
     }
 }

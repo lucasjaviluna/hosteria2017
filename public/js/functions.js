@@ -1,3 +1,10 @@
+$.ajaxSetup({
+  headers: {
+      //'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      'X-CSRF-Token': $('input[name="_token"]').val()
+  }
+});
+
 function phoneValidation(element) {
     if (element.value == '') {
         element.setCustomValidity('Ingrese su telefono');
@@ -30,6 +37,20 @@ function nameValidation(element) {
     }
     else if (element.validity.typeMismatch){
         element.setCustomValidity('Ingrese un nombre válido');
+    }
+    else {
+       element.setCustomValidity('');
+    }
+    return true;
+}
+
+function messageValidation(element) {
+    console.log(element);
+    if (element.value == '') {
+        element.setCustomValidity('Ingrese el mensaje');
+    }
+    else if (element.validity.typeMismatch){
+        element.setCustomValidity('Ingrese el mensaje');
     }
     else {
        element.setCustomValidity('');
@@ -93,9 +114,31 @@ function nameValidation(element) {
     $('#contactForm').submit(function(event) {
 			event.preventDefault();
 			event.stopPropagation();
-
-			var datos = $('#contactForm').serialize();
-			console.log(datos);
+      var name = $("#contactForm :input[name='contact-name']").val();
+      var email = $("#contactForm :input[name='contact-email']").val();
+      var phone = $("#contactForm :input[name='contact-phone']").val();
+      var message = $("#contactForm :input[name='contact-message']").val();
+      $.ajax({
+          type: "POST",
+          url: 'contactMsg',
+          data: {
+            name: name,
+            email: email,
+            phone: phone,
+            message: message
+          },
+          success: function(data) {
+              console.log('ok', data);
+              /*if (data.code == 200) {
+                  if (data.promotionDeleted == true) {
+                      $("div.promo[data-id="+promotionId+"]").hide();
+                  }
+              }*/
+          },
+          error: function(error) {
+              console.log("Error", error);
+          }
+      });
 			/*$.ajax({
 					url: 'send_email.php',
 					type: 'POST',

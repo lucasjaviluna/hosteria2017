@@ -611,8 +611,8 @@
 					<div class="col-md-7 col-md-offset-1">
 						<div class="form-contacts-outer">
 							<div class="form-contacts">
-
-									<form action="" method="post" name="contactForm" id="contactForm">
+									{!! Form::open(['route'=> 'contact', 'method' => 'POST', 'id' => 'contactForm']) !!}
+									{{-- <form action="" method="post" name="contactForm" id="contactForm"> --}}
 										<div class="form-body">
 											<div class="row">
 												<div class="col-md-6">
@@ -635,10 +635,10 @@
 													</div><!-- /.form-group -->
 
 													<div class="form-group">
-														<label for="contact-subject" class="hidden">Teléfono</label>
+														<label for="contact-phone" class="hidden">Teléfono</label>
 
 														<div class="form-controls">
-															<input type="text" class="form-control" name="contact-subject" id="contact-subject" value="" placeholder="Teléfono *"
+															<input type="text" class="form-control" name="contact-phone" id="contact-phone" value="" placeholder="Teléfono *"
 																required oninvalid="phoneValidation(this)" oninput="setCustomValidity('')">
 														</div><!-- /.form-controls -->
 													</div><!-- /.form-group -->
@@ -649,7 +649,8 @@
 														<label for="contact-message" class="hidden">Mensaje</label>
 
 														<div class="form-controls">
-															<textarea class="form-control" name="contact-message" id="contact-message" placeholder="Mensaje *">
+															<textarea class="form-control" name="contact-message" id="contact-message" placeholder="Mensaje *"
+																required oninvalid="messageValidation(this)" oninput="setCustomValidity('')">
 															</textarea>
 														</div><!-- /.form-controls -->
 													</div><!-- /.form-group -->
@@ -660,7 +661,8 @@
 										<div class="form-actions">
 											<input type="submit" name="contact-form" value="Enviar Mensaje" class="btn btn-primary btn-sm">
 										</div><!-- /.form-actions -->
-									</form>
+									{!! Form::close() !!}
+									{{-- </form> --}}
 
 							</div><!-- /.form-contacts -->
 						</div><!-- /.form-contacts-outer -->
